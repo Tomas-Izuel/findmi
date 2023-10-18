@@ -1,0 +1,18 @@
+---
+interface Props{
+    color: 'primary' | 'secondary'
+    href?: string
+}
+
+const {color, href} = Astro.props
+---
+
+{href ? (
+    <a class={`font-bold text-center bg-primary text-white p-4 rounded-lg shadow-md w-full ${color === 'primary' ? 'bg-primary' : 'bg-secondary'}`} href={href}>
+    <slot/>
+</a>
+) : (
+<button class={`font-bold bg-primary text-white p-4 rounded-lg shadow-md w-full ${color === 'primary' ? 'bg-primary' : 'bg-secondary'}`}>
+    <slot/>
+</button>
+)}
