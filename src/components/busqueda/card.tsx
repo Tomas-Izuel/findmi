@@ -13,12 +13,11 @@ const MusicoCard = ({ musico }: CardProps) => {
       className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] flex flex-row h-60"
       shadow="sm"
     >
-      <div className="w-1/3 h-60 bg-red-200">
+      <div className="w-1/3 h-60 ">
         <Image
           alt="Album cover"
-          className=" object-cover h-full w-auto"
-          shadow="md"
-          height={240}
+          shadow="sm"
+          className="h-60 object-cover"
           src="/default_image.jpg"
           isBlurred
         />
