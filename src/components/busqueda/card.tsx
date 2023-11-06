@@ -33,19 +33,17 @@ const MusicoCard = ({ musico }: CardProps) => {
         <p className="text-sm mt-2">{musico.experiencia}</p>
         <Divider />
         <div className="p-1">
-          {musico.contacto.instagram && (
-            <a href={musico.contacto.instagram}>
+          {musico.instagram && (
+            <a href={musico.instagram}>
               <BiLogoInstagram className="w-5 h-5" />
             </a>
           )}
-          {musico.contacto.phone && (
-            <a
-              href={`https://api.whatsapp.com/send?phone=${musico.contacto.phone}`}
-            >
+          {musico.telefono && (
+            <a href={`https://api.whatsapp.com/send?phone=${musico.telefono}`}>
               <BiLogoWhatsapp className="w-5 h-5" />
             </a>
           )}
-          {musico.contacto.email && (
+          {musico.email && (
             <a href={""}>
               <BiMailSend className="w-5 h-5" />
             </a>
