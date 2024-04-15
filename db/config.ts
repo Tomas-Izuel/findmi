@@ -13,6 +13,7 @@ const Contact = defineTable({
     id: column.number({ primaryKey: true }),
     network: column.text(),
     href: column.text(),
+    musicianId: column.number({ references: () => Musician.columns.id }),
   },
 });
 
@@ -20,6 +21,15 @@ const Experience = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     experience: column.number(),
+  },
+});
+
+const MusicianInstrument = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    instrumentId: column.number({ references: () => Instrument.columns.id }),
+    experienceId: column.number({ references: () => Experience.columns.id }),
+    musicianId: column.number({ references: () => Musician.columns.id }),
   },
 });
 
@@ -38,14 +48,6 @@ const Musician = defineTable({
     contactId: column.number({
       references: () => Contact.columns.id,
     }),
-  },
-});
-
-const MusicianInstrument = defineTable({
-  columns: {
-    id: column.number({ primaryKey: true }),
-    instrumentId: column.number({ references: () => Instrument.columns.id }),
-    experienceId: column.number({ references: () => Experience.columns.id }),
   },
 });
 export default defineDb({

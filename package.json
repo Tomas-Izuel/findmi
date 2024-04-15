@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build --remote",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,11 +13,17 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/db": "^0.10.4",
     "@astrojs/react": "^3.3.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@nextui-org/react": "^2.2.10",
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.2.25",
     "astro": "^4.6.1",
+    "framer-motion": "^11.0.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.4.5"
+    "react-hook-form": "^7.51.3",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "zod": "^3.22.4"
   }
 }
