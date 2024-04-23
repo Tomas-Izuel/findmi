@@ -1,0 +1,11 @@
+---
+import { Button, Input } from "@nextui-org/react";
+import HeaderActions from "./HeaderActions";
+---
+
+<header class="flex justify-between items-center p-4 gap-2">
+  <p>LOGO</p>
+  <div>
+    <HeaderActions client:load />
+  </div>
+</header>

@@ -8,11 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        "findmi-primary": "#0000",
+        "findmi-primary": "#B4151C",
       },
     },
   },
 
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          primary: "#B4151C",
+        },
+      },
+    }),
+  ],
 };

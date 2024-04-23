@@ -1,9 +1,13 @@
 ---
+import Header from "../components/layout/Header.astro";
+import type { Navigation } from "../types/navigation";
+
 interface Props {
   title: string;
+  page: Navigation;
 }
 
-const { title } = Astro.props;
+const { title, page } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,7 +23,8 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="light text-foreground bg-background">
+    <Header />
     <slot />
   </body>
 </html>
@@ -37,5 +42,57 @@ const { title } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+
+  .height {
+    height: 100dvh;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+</style>
+
+<style is:global>
+  .transition-in {
+    animation: fadeIn 0.5s cubic-bezier(0, 0.74, 0.9, 0.48) both 0.25s;
+  }
+
+  .expand-in {
+    animation: expandIn 0.5s ease-in-out both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes expandIn {
+    0% {
+      @apply w-10;
+    }
+    100% {
+      @apply w-full;
+    }
   }
 </style>

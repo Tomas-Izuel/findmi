@@ -1,13 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Button } from "@nextui-org/react";
+import { Navigation } from "../types/navigation";
 ---
 
-<Layout title="FindMi - Encuentra tu músico ideal">
-  <main class="w-screen h-screen">
+<Layout title="FindMi - Encuentra tu músico ideal" page={Navigation.HOME}>
+  <main
+    class="w-screen height flex justify-center items-center flex-col text-center gap-10"
+  >
     <h1>Encuentra el múscico que falta en tu banda</h1>
-    <a>
-      <Button color="primary" client:load>Buscar músico</Button>
+    <a href="/musicos">
+      <Button
+        color="primary"
+        className=" bg-findmi-primary text-xl font-semibold py-6 px-8"
+        radius="full"
+        client:load>Buscar músico</Button
+      >
     </a>
   </main>
 </Layout>
