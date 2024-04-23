@@ -6,25 +6,14 @@ const HeaderActions = () => {
 
   const handleSearch = () => {
     setshowSearch(!showSearch);
-
-    const searchContainer = document.getElementById("search-container");
-
-    if (!showSearch) {
-      searchContainer?.classList.remove("hidden");
-      searchContainer?.classList.add("expand-in");
-      return;
-    }
-
-    searchContainer?.classList.add("hidden");
-    searchContainer?.classList.remove("expand-in");
-    return;
   };
   return (
     <div className="flex gap-5">
       <div className="flex justify-end">
         <div
-          id="search-container"
-          className=" pr-10 bg-white border-1 border-findmi-primary translate-x-10 rounded-full overflow-hidden hidden"
+          className={`pr-10 bg-white border-1 border-findmi-primary translate-x-10 rounded-full overflow-hidden ${
+            showSearch ? "expand-in" : "hidden"
+          }`}
         >
           {showSearch && (
             <Input
@@ -36,7 +25,9 @@ const HeaderActions = () => {
         <Button
           isIconOnly
           radius="full"
-          className="bg-findmi-primary text-white w-10 h-10"
+          className={`bg-findmi-primary text-white w-10 h-10 ${
+            showSearch && "rotate-[360deg]"
+          }`}
           onClick={handleSearch}
         >
           <svg
