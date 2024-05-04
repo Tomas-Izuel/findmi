@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         "findmi-primary": "#B4151C",
+        "findmi-secondary": "#ce351a",
       },
     },
   },

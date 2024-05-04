@@ -1,11 +1,59 @@
 ---
-import { Button, Input } from "@nextui-org/react";
-import HeaderActions from "./HeaderActions";
+import { Button, Input, Link } from "@nextui-org/react";
 ---
 
-<header class="flex justify-between items-center p-4 gap-2">
-  <p>LOGO</p>
-  <div>
-    <HeaderActions client:load />
-  </div>
+<header
+  class="fixed w-screen bottom-0 bg-white shadow-md border-2 flex justify-between items-center py-4 px-10"
+>
+  <Button client:load isIconOnly className="text-black bg-white w-16 h-16">
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-8 h-8"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      ></path>
+    </svg>
+  </Button>
+  <a href="/registro"
+    ><Button
+      client:load
+      radius="full"
+      isIconOnly
+      className="text-white bg-findmi-primary w-16 h-16 -translate-y-1/2 shadow-md"
+    >
+      <svg
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-8 h-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+      </svg>
+    </Button>
+  </a>
+  <Button client:load isIconOnly className="text-black bg-white w-16 h-16">
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-8 h-8"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+      ></path>
+    </svg>
+  </Button>
 </header>
