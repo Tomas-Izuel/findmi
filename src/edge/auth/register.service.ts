@@ -1,7 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 import { BasicInfo } from "./register.type";
 import { createClient } from "@/utils/supabase/server";
@@ -26,6 +24,7 @@ export async function Register(data: BasicInfo) {
       apodo: data.apodo,
       edad: data.edad,
       email: data.email,
+      provincia: data.provincia,
     };
 
     const response = await client.from("musico").insert(user);

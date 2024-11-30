@@ -41,6 +41,11 @@ export const BasicInfoSchema = z.object({
     .min(6, {
       message: "La contraseña debe tener al menos 6 caracteres",
     }),
+    provincia: z.string(
+      {
+        message: "La provincia es requerida",
+      }
+    )
 });
 
 export type BasicInfo = z.infer<typeof BasicInfoSchema>;

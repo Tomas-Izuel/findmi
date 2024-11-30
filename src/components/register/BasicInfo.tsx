@@ -1,21 +1,22 @@
 "use client";
 
 import { BasicInfo, BasicInfoSchema } from "@/edge/auth/register.type";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegisterForm } from "@/providers/RegisterFormProvider";
 import { Register } from "@/edge/auth/register.service";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import PromiseButton from "../ui/promise-button";
 
 const BasicInfoStep = () => {
   const { handleChangeStep } = useRegisterForm();
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<BasicInfo>({
-    resolver: zodResolver(BasicInfoSchema),
+    resolver: zodResolver(BasicInfoSchema)
   });
 
   const onSubmit = async (data: BasicInfo) => {
@@ -24,8 +25,10 @@ const BasicInfoStep = () => {
       handleChangeStep(data);
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
+
   return (
     <form
       className="flex flex-col gap-4 mt-6"
@@ -38,39 +41,92 @@ const BasicInfoStep = () => {
       <div className="flex gap-2">
         <div className="required">
           <label htmlFor="nombre">Nombre</label>
-          <Input {...register("nombre")} />
-          <span>{errors.nombre?.message && errors.nombre.message}</span>
+          <Controller
+            name="nombre"
+            control={control}
+            render={({ field }) => <Input {...field} />}
+          />
+          <span>{errors.nombre?.message}</span>
         </div>
         <div className="required">
           <label htmlFor="apellido">Apellido</label>
-          <Input {...register("apellido")} />
-          <span>{errors.apellido?.message && errors.apellido.message}</span>
+          <Controller
+            name="apellido"
+            control={control}
+            render={({ field }) => <Input {...field} />}
+          />
+          <span>{errors.apellido?.message}</span>
         </div>
       </div>
       <div className="flex gap-2">
         <div>
           <label htmlFor="apodo">Apodo</label>
-          <Input {...register("apodo")} />
+          <Controller
+            name="apodo"
+            control={control}
+            render={({ field }) => <Input {...field} />}
+          />
         </div>
         <div className="required">
           <label htmlFor="edad">Edad</label>
-          <Input type="number" {...register("edad")} />
-          <span>{errors.edad?.message && errors.edad.message}</span>
+          <Controller
+            name="edad"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="number"
+                {...field}
+                onChange={(e) => field.onChange(e.target.valueAsNumber)}
+              />
+            )}
+          />
+          <span>{errors.edad?.message}</span>
         </div>
       </div>
       <div className="required">
         <label htmlFor="email">Corréo electrónico</label>
-        <Input type="email" {...register("email")} />
-        <span>{errors.email?.message && errors.email.message}</span>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => <Input type="email" {...field} />}
+        />
+        <span>{errors.email?.message}</span>
       </div>
-      <div className="required">
-        <label htmlFor="contraseña">Contraseña</label>
-        <Input type="password" {...register("contraseña")} />
-        <span>{errors.contraseña?.message && errors.contraseña.message}</span>
+      <div className="flex gap-2">
+        <div className="required">
+          <label htmlFor="provincia">Provincia</label>
+          <Controller
+            name="provincia"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Provincia" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Mendoza">Mendoza</SelectItem>
+                  <SelectItem value="Neuquen">Neuquen</SelectItem>
+                  <SelectItem value="Buenos_Aires">Buenos aires</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <span>{errors.provincia?.message}</span>
+        </div>
+        <div className="required">
+          <label htmlFor="contraseña">Contraseña</label>
+          <Controller
+            name="contraseña"
+            control={control}
+            render={({ field }) => <Input type="password" {...field} />}
+          />
+          <span>{errors.contraseña?.message}</span>
+        </div>
       </div>
-      <Button type="submit">Siguiente</Button>
+      <PromiseButton label='Siguiente paso' onClickPromise={handleSubmit(onSubmit)} />
     </form>
   );
 };
 
 export default BasicInfoStep;
+
