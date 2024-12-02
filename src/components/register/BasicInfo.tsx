@@ -4,25 +4,28 @@ import { BasicInfo, BasicInfoSchema } from "@/edge/auth/register.type";
 import { Input } from "../ui/input";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRegisterForm } from "@/providers/RegisterFormProvider";
 import { Register } from "@/edge/auth/register.service";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import PromiseButton from "../ui/promise-button";
 
 const BasicInfoStep = () => {
-  const { handleChangeStep } = useRegisterForm();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<BasicInfo>({
-    resolver: zodResolver(BasicInfoSchema)
+    resolver: zodResolver(BasicInfoSchema),
   });
 
   const onSubmit = async (data: BasicInfo) => {
     try {
       await Register(data);
-      handleChangeStep(data);
     } catch (error) {
       console.log(error);
       throw error;
@@ -123,10 +126,12 @@ const BasicInfoStep = () => {
           <span>{errors.contraseña?.message}</span>
         </div>
       </div>
-      <PromiseButton label='Siguiente paso' onClickPromise={handleSubmit(onSubmit)} />
+      <PromiseButton
+        label="Siguiente paso"
+        onClickPromise={handleSubmit(onSubmit)}
+      />
     </form>
   );
 };
 
 export default BasicInfoStep;
-
