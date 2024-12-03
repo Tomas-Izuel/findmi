@@ -1,6 +1,16 @@
 import { z } from "zod";
 
-export const BasicInfoSchema = z.object({
+export const UserDataShema = z.object({
+  id: z.string(),
+  nombre: z.string(),
+  apellido: z.string(),
+  apodo: z.string().optional(),
+  edad: z.number(),
+  email: z.string(),
+  provincia: z.string(),
+});
+
+export const BasicInfoCreationSchema = z.object({
   nombre: z
     .string({
       message: "El nombre es requerido",
@@ -34,16 +44,10 @@ export const BasicInfoSchema = z.object({
     .min(6, {
       message: "El correo electrónico debe tener al menos 6 caracteres",
     }),
-  contraseña: z
-    .string({
-      message: "La contraseña es requerida",
-    })
-    .min(6, {
-      message: "La contraseña debe tener al menos 6 caracteres",
-    }),
   provincia: z.string({
     message: "La provincia es requerida",
   }),
 });
 
-export type BasicInfo = z.infer<typeof BasicInfoSchema>;
+export type UserData = z.infer<typeof UserDataShema>;
+export type BasicInfo = z.infer<typeof BasicInfoCreationSchema>;

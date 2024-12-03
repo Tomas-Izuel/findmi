@@ -26,11 +26,22 @@ export const RegisterSchema = z.object({
     .regex(/[0-9]/, {
       message: "La contraseña debe contener al menos un número",
     }),
+  confirmarContraseña: z.string().refine((data) => data === data, {
+    message: "Las contraseñas no coinciden",
+  }),
 });
 
 export type RegisterType = z.infer<typeof RegisterSchema>;
 
-export const AuthSearchParamsSchema = z.object({
-  status: z.nativeEnum(AuthStatus).optional(),
-  id: z.string().optional(),
+export const ConfirmRegisterParamsSchema = z.object({
+  token_hash: z.string(),
+  type: z.enum([
+    "email",
+    "signup",
+    "invite",
+    "magiclink",
+    "recovery",
+    "email_change",
+  ]),
+  account_id: z.string(),
 });

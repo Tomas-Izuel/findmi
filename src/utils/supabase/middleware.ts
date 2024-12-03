@@ -1,12 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const excludedPaths = ["/login", "/registro", "/", "/musicos"];
+const excludedPaths = ["/login", "/registro", "/", "/musicos", "/confirm"];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
+  console.log(request.cookies.getAll());
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,11 +31,6 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-
-  // IMPORTANT: Avoid writing any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -42,7 +38,7 @@ export async function updateSession(request: NextRequest) {
   if (!user && !excludedPaths.includes(request.nextUrl.pathname)) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/registro";
     return NextResponse.redirect(url);
   }
 

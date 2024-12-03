@@ -39,7 +39,7 @@ export default function Home() {
               variant="outline"
               className="w-fit border-2 border-quaternary text-quaternary"
             >
-              Registrarme
+              Soy músico
               <ArrowRightCircle className="w-6 h-6" />
             </Button>
           </Link>
@@ -48,7 +48,7 @@ export default function Home() {
               variant="outline"
               className="w-fit border-2 border-primary text-primary"
             >
-              Buscar un músico
+              Busco a un músico
               <ArrowRightCircle className="w-6 h-6" />
             </Button>
           </Link>
