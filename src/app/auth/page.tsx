@@ -1,5 +1,5 @@
 export const dynamic = "force-static";
-import AuthForm from "@/components/register/AuthForm";
+import AuthForm from "@/components/auth/AuthForm";
 
 export default function AuthPage() {
   return (

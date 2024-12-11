@@ -1,16 +1,15 @@
 import { z } from "zod";
 
-export const UserDataShema = z.object({
+export const MusicianSchema = z.object({
   id: z.string(),
   nombre: z.string(),
   apellido: z.string(),
   apodo: z.string().optional(),
   edad: z.number(),
-  email: z.string(),
   provincia: z.string(),
 });
 
-export const BasicInfoCreationSchema = z.object({
+export const CreateMusicianDTOSchema = z.object({
   nombre: z
     .string({
       message: "El nombre es requerido",
@@ -34,20 +33,10 @@ export const BasicInfoCreationSchema = z.object({
     .int({
       message: "La edad debe ser un número entero",
     }),
-  email: z
-    .string({
-      message: "El correo electrónico es requerido",
-    })
-    .email({
-      message: "El correo electrónico no es válido",
-    })
-    .min(6, {
-      message: "El correo electrónico debe tener al menos 6 caracteres",
-    }),
   provincia: z.string({
     message: "La provincia es requerida",
   }),
 });
 
-export type UserData = z.infer<typeof UserDataShema>;
-export type BasicInfo = z.infer<typeof BasicInfoCreationSchema>;
+export type Musician = z.infer<typeof MusicianSchema>;
+export type CreateMusicianDTO = z.infer<typeof CreateMusicianDTOSchema>;

@@ -16,6 +16,7 @@ export default function Navbar() {
       >
         {/* Left Icon */}
         <Link
+          prefetch
           href="/"
           className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-white/10"
         >
@@ -27,6 +28,7 @@ export default function Navbar() {
         <div className="absolute left-1/2 top-0 -translate-x-1/2 transform z-10">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black shadow-lg">
             <Link
+              prefetch
               href="/music"
               className="flex h-12 w-12 items-center justify-center rounded-full transition-transform hover:scale-105"
             >
@@ -44,6 +46,7 @@ export default function Navbar() {
 
         {/* Right Icon */}
         <Link
+          prefetch
           href="/search"
           className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-white/10"
         >
