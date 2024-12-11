@@ -11,10 +11,10 @@ body {
 @layer base {
   :root {
     --color-secondary: #121710;
-    --color-primary: #b796ff;
+    --color-primary: #daff7c;
     --color-tertiary: #f3eeff;
     --color-base-experience: #ffbf85;
-    --color-quaternary: #daff7c;
+    --color-quaternary: #b796ff;
     --color-light-gray: #6b6e6a;
     --color-dark-gray: #262626;
 

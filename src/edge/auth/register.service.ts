@@ -2,8 +2,10 @@
 
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
-import { RegisterType } from "./register.type";
+import { ConfirmEmailType, LoginType, RegisterType } from "./register.type";
 import { AUTH_SESSION_COOKIE } from "@/lib/constants";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function Register(data: RegisterType) {
   const client = await createClient();
@@ -37,4 +39,40 @@ export async function Register(data: RegisterType) {
     console.error(`[Register] Error: ${(error as Error).message}`);
     throw new Error(`Error: ${(error as Error).message}`);
   }
+}
+
+export async function ConfirmEmail(data: ConfirmEmailType) {
+  try {
+    const client = await createClient();
+    const { error } = await client.auth.verifyOtp({
+      type: data.type,
+      token_hash: data.token_hash,
+    });
+
+    if (error) {
+      throw new Error("Error verifying OTP");
+    }
+
+    console.log("[ConfirmEmail] email confirmado correctamente");
+    return { success: true };
+  } catch (error) {
+    console.error(`[ConfirmEmail] Error: ${(error as Error).message}`);
+    return { success: false };
+  }
+}
+
+export async function LogIn(data: LoginType) {
+  const supabase = await createClient();
+
+  const response = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.contraseña,
+  });
+
+  if (response.error) {
+    throw new Error("Error al iniciar sesión");
+  }
+
+  revalidatePath(`/musicos/${response.data.user.id}`, "layout");
+  redirect(`/musicos/${response.data.user.id}`);
 }

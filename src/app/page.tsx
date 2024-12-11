@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import { Button } from "@/components/ui/button";
 import { ArrowRightCircle } from "lucide-react";
 import Image from "next/image";
@@ -34,7 +35,7 @@ export default function Home() {
           <span className="text-quaternary"> banda</span>
         </h1>
         <div className="flex flex-col gap-3 pb-2">
-          <Link href="/registro">
+          <Link href="/auth" prefetch>
             <Button
               variant="outline"
               className="w-fit border-2 border-quaternary text-quaternary"
@@ -43,7 +44,7 @@ export default function Home() {
               <ArrowRightCircle className="w-6 h-6" />
             </Button>
           </Link>
-          <Link href="/musicos">
+          <Link href="/musicos" prefetch>
             <Button
               variant="outline"
               className="w-fit border-2 border-primary text-primary"

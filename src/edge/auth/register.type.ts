@@ -5,7 +5,7 @@ export enum AuthStatus {
   CONFIRMED = "confirmed",
 }
 
-export const RegisterSchema = z.object({
+export const LoginSchema = z.object({
   email: z
     .string({
       message: "El correo electrónico es requerido",
@@ -26,6 +26,11 @@ export const RegisterSchema = z.object({
     .regex(/[0-9]/, {
       message: "La contraseña debe contener al menos un número",
     }),
+});
+
+export type LoginType = z.infer<typeof LoginSchema>;
+
+export const RegisterSchema = LoginSchema.extend({
   confirmarContraseña: z.string().refine((data) => data === data, {
     message: "Las contraseñas no coinciden",
   }),
@@ -43,5 +48,7 @@ export const ConfirmRegisterParamsSchema = z.object({
     "recovery",
     "email_change",
   ]),
-  account_id: z.string(),
+  id: z.string(),
 });
+
+export type ConfirmEmailType = z.infer<typeof ConfirmRegisterParamsSchema>;

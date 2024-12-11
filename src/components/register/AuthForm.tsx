@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Register } from "@/edge/auth/register.service";
+import { LogIn, Register } from "@/edge/auth/register.service";
 import { RegisterSchema, RegisterType } from "@/edge/auth/register.type";
 import FireLogo from "./FireLogo";
 import ConfirmationMessage from "./ConfirmMessage";
@@ -28,7 +27,6 @@ type LoginFormData = z.infer<typeof LoginSchema>;
 export default function AuthForm() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
-  const router = useRouter();
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
@@ -53,9 +51,7 @@ export default function AuthForm() {
         await Register(data as RegisterType);
         setIsRegistered(true);
       } else {
-        // Aquí iría la lógica de login
-        console.log("Login attempt with:", data);
-        router.push("/dashboard");
+        await LogIn(data);
       }
     } catch (error) {
       console.error("Submission error:", error);
