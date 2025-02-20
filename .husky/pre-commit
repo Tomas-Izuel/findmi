@@ -1,0 +1,7 @@
+bun prettier . --write
+bun lint
+
+git add .
+
+echo "✅ Pre-commit checks passed"
+echo "🚀 Commiting..."
