@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -10,6 +11,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        BaseExperience: "#FFBF85",
+        Secondary_color: "#121710",
+        primary_color: "#B796FF",
+        Therciary_color: "#F3EEFF",
+        button: {
+          quaternary: "#DAFF7C",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -51,12 +59,7 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

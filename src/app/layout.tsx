@@ -8,8 +8,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "FindMi",
-  description: "Encontrá al músico que hace falta en tu banda",
+  title: "FindMi - Encuentra Músicos Talentosos",
+  description:
+    "Conecta con músicos talentosos y encuentra al miembro perfecto para tu banda. Únete a la comunidad musical de FindMi.",
+  keywords:
+    "músicos, banda, talento, música, encontrar músicos, comunidad musical",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({
