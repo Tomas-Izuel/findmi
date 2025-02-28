@@ -11,8 +11,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        BaseExperience: "#FFBF85",
-        Secondary_color: "#121710",
+        base_experience: "#FFBF85",
+        secondary_color: "#121710",
         primary_color: "#B796FF",
         Therciary_color: "#F3EEFF",
         button: {
