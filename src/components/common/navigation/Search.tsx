@@ -25,12 +25,8 @@ const Search = () => {
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline" className="w-full">
-              Cancel
-            </Button>
-          </DrawerClose>
+          <Button>Buscar</Button>
+          <DrawerClose>Cancel</DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

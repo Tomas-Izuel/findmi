@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/navigation/Navbar";
+import DesktopNavbar from "@/components/common/navigation/DesktopNavbar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -14,7 +15,6 @@ export const metadata: Metadata = {
     "Conecta con músicos talentosos y encuentra al miembro perfecto para tu banda. Únete a la comunidad musical de FindMi.",
   keywords:
     "músicos, banda, talento, música, encontrar músicos, comunidad musical",
-  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({
@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         {children}
+        <DesktopNavbar />
         <Navbar />
       </body>
     </html>
