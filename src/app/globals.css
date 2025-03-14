@@ -79,3 +79,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .wrapper {
+    @apply max-w-screen-2xl mx-auto p-3.5;
+  }
+}
