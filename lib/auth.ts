@@ -35,6 +35,12 @@ export const auth = betterAuth({
     process.env.BETTER_AUTH_URL || "http://localhost:3000",
     "http://localhost:3000",
     "http://localhost:3001",
+    // Vercel deployment
+    "https://findmi-one.vercel.app",
+    // Agregar NEXT_PUBLIC_APP_URL si está definido
+    ...(process.env.NEXT_PUBLIC_APP_URL
+      ? [process.env.NEXT_PUBLIC_APP_URL]
+      : []),
     // IPs locales comunes para testing en móvil
     ...(process.env.NODE_ENV === "development"
       ? ([

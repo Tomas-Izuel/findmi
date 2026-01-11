@@ -16,7 +16,7 @@ export function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-1">
                         <Logo className="h-7 w-7 text-primary" />
-                        <Logo variant="full" className="h-5 text-foreground" />
+                        <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">Findmi</span>
                     </Link>
 
                     {/* Auth */}

@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Settings, Music, Sparkles } from "lucide-react";
 import { PlatformIcon } from "@/components/ui/platform-icon";
 import { MusicianProfileCard } from "@/components/musician-profile/profile-card";
+import { LogoutButton } from "@/components/auth/logout-button";
 import Link from "next/link";
 
 export default async function PerfilPage() {
@@ -254,6 +255,7 @@ export default async function PerfilPage() {
                 >
                     <Link href="/perfil/editar">Editar perfil</Link>
                 </Button>
+                <LogoutButton />
             </div>
         </div>
     );

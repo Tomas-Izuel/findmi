@@ -166,16 +166,16 @@ export function SearchResults({ filters }: SearchResultsProps) {
     return (
         <div
             ref={containerRef}
-            className="flex-1 overflow-y-auto"
+            className="flex-1 overflow-y-auto snap-y snap-mandatory"
         >
-            <div className="grid grid-cols-2 gap-3 p-4">
-                {profiles.map((profile) => (
-                    <Card
-                        key={profile.id}
-                        className="overflow-hidden bg-card border-border cursor-pointer hover:border-primary/30 transition-colors"
-                    >
-                        {/* Imagen */}
-                        <div className="relative aspect-video">
+            {profiles.map((profile) => (
+                <div
+                    key={profile.id}
+                    className="h-full snap-start snap-always flex items-center justify-center p-4"
+                >
+                    <Card className="w-full max-w-md h-full overflow-hidden bg-card border-border cursor-pointer hover:border-primary/30 transition-colors flex flex-col">
+                        {/* Imagen - ocupa la mayor parte */}
+                        <div className="relative flex-1 min-h-0">
                             {profile.primaryImage ? (
                                 <Image
                                     src={profile.primaryImage.url}
@@ -185,58 +185,66 @@ export function SearchResults({ filters }: SearchResultsProps) {
                                 />
                             ) : (
                                 <div className="w-full h-full bg-muted flex items-center justify-center">
-                                    <Music className="h-8 w-8 text-muted-foreground" />
+                                    <Music className="h-16 w-16 text-muted-foreground" />
                                 </div>
                             )}
-                            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
 
                             {/* Badge instrumento */}
-                            <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground text-[10px] px-2 py-0.5">
+                            <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1">
                                 {profile.instrument.name}
                             </Badge>
-                        </div>
 
-                        {/* Info */}
-                        <div className="p-3 space-y-1">
-                            <h3 className="font-semibold text-sm truncate">
-                                {profile.user.name || "Sin nombre"}
-                            </h3>
+                            {/* Info superpuesta */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
+                                <h3 className="text-2xl font-bold">
+                                    {profile.user.name || "Sin nombre"}
+                                </h3>
 
-                            {profile.user.location && (
-                                <p className="text-xs text-muted-foreground flex items-center gap-1">
-                                    <MapPin className="h-3 w-3" />
-                                    {profile.user.location}
-                                </p>
-                            )}
+                                {profile.user.location && (
+                                    <p className="text-sm flex items-center gap-2 text-white/90">
+                                        <MapPin className="h-4 w-4" />
+                                        {profile.user.location}
+                                    </p>
+                                )}
 
-                            <div className="flex items-center justify-between pt-1">
-                                <span className="text-[10px] text-muted-foreground">
-                                    {getSeniorityLabel(profile.calculatedSeniority)}
-                                </span>
-                                {profile.experienceCount > 0 && (
-                                    <span className="text-[10px] text-primary flex items-center gap-0.5">
-                                        <Star className="h-3 w-3" />
-                                        {profile.experienceCount}
+                                <div className="flex items-center gap-4">
+                                    <span className="text-sm text-white/90">
+                                        {getSeniorityLabel(profile.calculatedSeniority)}
                                     </span>
+                                    {profile.experienceCount > 0 && (
+                                        <span className="text-sm text-primary flex items-center gap-1">
+                                            <Star className="h-4 w-4 fill-current" />
+                                            {profile.experienceCount} experiencia{profile.experienceCount > 1 ? "s" : ""}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {profile.bio && (
+                                    <p className="text-sm text-white/80 line-clamp-2">
+                                        {profile.bio}
+                                    </p>
                                 )}
                             </div>
                         </div>
                     </Card>
-                ))}
-            </div>
+                </div>
+            ))}
 
             {/* Loading more indicator */}
             {isLoadingMore && (
-                <div className="flex justify-center py-4">
-                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <div className="h-full flex items-center justify-center snap-start">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
             )}
 
             {/* End of results */}
             {!hasMore && profiles.length > 0 && (
-                <p className="text-center text-xs text-muted-foreground py-4">
-                    No hay más resultados
-                </p>
+                <div className="h-32 flex items-center justify-center snap-start">
+                    <p className="text-sm text-muted-foreground">
+                        No hay más resultados
+                    </p>
+                </div>
             )}
         </div>
     );
