@@ -1,65 +1,114 @@
-import Image from "next/image";
+import Link from "next/link";
+import { MusicianCard } from "@/components/home/musician-card";
+
+// Mock data - esto vendría de la DB
+const featuredMusicians = [
+  {
+    id: "1",
+    name: "Martín García",
+    instrument: "Guitarra",
+    experience: "5+ años",
+    location: "Buenos Aires",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=600&fit=crop",
+  },
+  {
+    id: "2",
+    name: "Lucía Fernández",
+    instrument: "Bajo",
+    experience: "3 años",
+    location: "Córdoba",
+    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=600&fit=crop",
+  },
+  {
+    id: "3",
+    name: "Diego Romero",
+    instrument: "Batería",
+    experience: "7 años",
+    location: "Rosario",
+    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=600&fit=crop",
+  },
+  {
+    id: "4",
+    name: "Camila Torres",
+    instrument: "Voz",
+    experience: "4 años",
+    location: "Mendoza",
+    image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&h=600&fit=crop",
+  },
+  {
+    id: "5",
+    name: "Nicolás Pérez",
+    instrument: "Teclado",
+    experience: "6 años",
+    location: "La Plata",
+    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop",
+  },
+  {
+    id: "6",
+    name: "Ana Martínez",
+    instrument: "Guitarra",
+    experience: "8 años",
+    location: "CABA",
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=600&fit=crop",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="fixed inset-0 pt-14 pb-16 flex flex-col">
+      {/* Header row */}
+      <div className="flex items-center justify-between px-4 py-3">
+        <div>
+          <h1 className="text-lg font-bold">Descubrí músicos</h1>
+          <p className="text-xs text-muted-foreground">Tocá para ver más</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <Link
+          href="/buscar"
+          className="px-3 py-1.5 rounded-full border border-primary/30 text-primary text-xs font-medium hover:bg-primary/10 transition-all"
+        >
+          Ver todos
+        </Link>
+      </div>
+
+      {/* Bento Grid - fills remaining space */}
+      <div className="flex-1 px-3 pb-3 min-h-0">
+        <div className="h-full grid grid-cols-2 grid-rows-3 gap-2">
+          {/* Large card - spans 2 rows */}
+          <MusicianCard
+            {...featuredMusicians[0]}
+            className="row-span-2"
+          />
+
+          {/* Regular cards */}
+          <MusicianCard {...featuredMusicians[1]} />
+          <MusicianCard {...featuredMusicians[2]} />
+
+          {/* Bottom row - 2 cards side by side */}
+          <MusicianCard {...featuredMusicians[3]} />
+          <MusicianCard {...featuredMusicians[4]} />
         </div>
-      </main>
+      </div>
+
+      {/* Quick filters - horizontal scroll */}
+      <div className="px-4 py-2 border-t border-border/50">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4">
+          {[
+            { emoji: "🎸", name: "Guitarra" },
+            { emoji: "🎸", name: "Bajo" },
+            { emoji: "🥁", name: "Batería" },
+            { emoji: "🎹", name: "Teclado" },
+            { emoji: "🎤", name: "Voz" },
+          ].map((category) => (
+            <Link
+              key={category.name}
+              href={`/buscar?instrumento=${category.name}`}
+              className="shrink-0 px-3 py-1.5 rounded-full bg-muted/50 text-xs font-medium transition-all hover:bg-primary/20 hover:text-primary active:scale-95"
+            >
+              {category.emoji} {category.name}
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
