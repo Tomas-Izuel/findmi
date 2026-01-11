@@ -9,6 +9,7 @@ import { Loader2, Music, MapPin, Star, Sparkles } from "lucide-react";
 import { type SearchFilters } from "./search-filters";
 import { getSeniorityLabel } from "@/lib/seniority";
 import { getTierConfig } from "@/lib/musician-tiers";
+import { TierIcon } from "@/components/ui/tier-icon";
 
 interface ProfileImage {
     id: string;
@@ -178,9 +179,18 @@ export function SearchResults({ filters }: SearchResultsProps) {
                         className="h-full snap-start snap-always flex items-center justify-center p-4"
                     >
                         <Link href={`/musico/${profile.id}`} className="w-full max-w-md h-full">
-                            <Card className={`w-full h-full overflow-hidden bg-card border-2 cursor-pointer transition-all flex flex-col ${tierConfig.borderGlow} ${tierConfig.animation} hover:scale-[1.02]`}>
+                            <Card
+                                className={`relative w-full h-full bg-card border-2 cursor-pointer transition-all flex flex-col overflow-hidden ${tierConfig.borderColor} ${tierConfig.borderEffect} hover:scale-[1.02]`}
+                                style={
+                                    tierConfig.borderEffect
+                                        ? ({
+                                            "--border-color": `oklch(0.8 0.2 ${tierConfig.hue})`
+                                        } as React.CSSProperties)
+                                        : undefined
+                                }
+                            >
                                 {/* Imagen - ocupa la mayor parte */}
-                                <div className="relative flex-1 min-h-0">
+                                <div className="relative flex-1 min-h-0 overflow-hidden rounded-t-xl">
                                     {profile.primaryImage ? (
                                         <Image
                                             src={profile.primaryImage.url}
@@ -193,11 +203,14 @@ export function SearchResults({ filters }: SearchResultsProps) {
                                             <Music className="h-16 w-16 text-muted-foreground" />
                                         </div>
                                     )}
-                                    <div className={`absolute inset-0 bg-linear-to-t ${tierConfig.gradient} via-transparent to-transparent`} />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
 
                                     {/* Badge tier - top left */}
-                                    <Badge className={`absolute top-4 left-4 border ${tierConfig.badgeColor} px-3 py-1 text-sm font-bold`}>
-                                        {tierConfig.icon} {tierConfig.label}
+                                    <Badge
+                                        className={`absolute top-4 left-4 border ${tierConfig.badgeColor} px-3 py-1 text-sm font-bold flex items-center gap-1.5`}
+                                    >
+                                        <TierIcon iconName={tierConfig.iconName} className="h-4 w-4" />
+                                        {tierConfig.label}
                                     </Badge>
 
                                     {/* Badge instrumento - top right */}
@@ -206,31 +219,37 @@ export function SearchResults({ filters }: SearchResultsProps) {
                                     </Badge>
 
                                     {/* Info superpuesta */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
+                                    <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
                                         <div className="flex items-center gap-2">
-                                            <h3 className="text-2xl font-bold flex-1">
+                                            <h3
+                                                className={`text-2xl flex-1 ${tierConfig.nameEffect}`}
+                                            >
                                                 {profile.user.name || "Sin nombre"}
                                             </h3>
-                                            {tierConfig.name === "MASTER" && (
-                                                <Sparkles className="h-6 w-6 text-primary animate-pulse-slow" />
-                                            )}
+                                            {(tierConfig.name === "MASTER" ||
+                                                tierConfig.name === "EXPERT") && (
+                                                    <Sparkles className={`h-6 w-6 ${tierConfig.textEffect}`} />
+                                                )}
                                         </div>
 
                                         {profile.user.location && (
-                                            <p className="text-sm flex items-center gap-2 text-white/90">
+                                            <p
+                                                className={`text-sm flex items-center gap-2 ${tierConfig.locationEffect}`}
+                                            >
                                                 <MapPin className="h-4 w-4" />
                                                 {profile.user.location}
                                             </p>
                                         )}
 
                                         <div className="flex items-center gap-4">
-                                            <span className="text-sm text-white/90">
+                                            <span className={`text-sm ${tierConfig.textEffect}`}>
                                                 {getSeniorityLabel(profile.calculatedSeniority)}
                                             </span>
                                             {profile.experienceCount > 0 && (
                                                 <span className="text-sm text-amber-300 flex items-center gap-1">
                                                     <Star className="h-4 w-4 fill-current" />
-                                                    {profile.experienceCount} experiencia{profile.experienceCount > 1 ? "s" : ""}
+                                                    {profile.experienceCount} experiencia
+                                                    {profile.experienceCount > 1 ? "s" : ""}
                                                 </span>
                                             )}
                                         </div>
@@ -254,20 +273,24 @@ export function SearchResults({ filters }: SearchResultsProps) {
             })}
 
             {/* Loading more indicator */}
-            {isLoadingMore && (
-                <div className="h-full flex items-center justify-center snap-start">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
-            )}
+            {
+                isLoadingMore && (
+                    <div className="h-full flex items-center justify-center snap-start">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    </div>
+                )
+            }
 
             {/* End of results */}
-            {!hasMore && profiles.length > 0 && (
-                <div className="h-32 flex items-center justify-center snap-start">
-                    <p className="text-sm text-muted-foreground">
-                        No hay más resultados
-                    </p>
-                </div>
-            )}
-        </div>
+            {
+                !hasMore && profiles.length > 0 && (
+                    <div className="h-32 flex items-center justify-center snap-start">
+                        <p className="text-sm text-muted-foreground">
+                            No hay más resultados
+                        </p>
+                    </div>
+                )
+            }
+        </div >
     );
 }

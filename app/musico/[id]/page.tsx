@@ -29,6 +29,7 @@ import {
 import { getTierConfig } from "@/lib/musician-tiers";
 import { getSeniorityLabel } from "@/lib/seniority";
 import { PlatformIcon } from "@/components/ui/platform-icon";
+import { TierIcon } from "@/components/ui/tier-icon";
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -132,9 +133,7 @@ export default async function MusicianProfilePage({ params }: Props) {
                         <Music className="h-24 w-24 text-muted-foreground" />
                     </div>
                 )}
-                <div
-                    className={`absolute inset-0 bg-linear-to-b ${tierConfig.gradient} via-transparent to-background`}
-                />
+                <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-background" />
 
                 {/* Botón de volver */}
                 <div className="absolute top-4 left-4 z-10">
@@ -152,9 +151,10 @@ export default async function MusicianProfilePage({ params }: Props) {
 
                 {/* Badge tier */}
                 <Badge
-                    className={`absolute top-4 right-4 border ${tierConfig.badgeColor} px-4 py-2 text-base font-bold z-10`}
+                    className={`absolute top-4 right-4 border ${tierConfig.badgeColor} px-4 py-2 text-base font-bold z-10 flex items-center gap-2`}
                 >
-                    {tierConfig.icon} {tierConfig.label}
+                    <TierIcon iconName={tierConfig.iconName} className="h-5 w-5" />
+                    {tierConfig.label}
                 </Badge>
             </div>
 
@@ -162,19 +162,27 @@ export default async function MusicianProfilePage({ params }: Props) {
             <div className="max-w-2xl mx-auto px-4 -mt-16 relative z-10">
                 {/* Card principal con info */}
                 <Card
-                    className={`p-6 bg-card border-2 ${tierConfig.borderGlow} ${tierConfig.animation}`}
+                    className={`relative p-6 bg-card border-2 ${tierConfig.borderColor} ${tierConfig.borderEffect}`}
+                    style={
+                        tierConfig.borderEffect
+                            ? ({
+                                "--border-color": `oklch(0.8 0.2 ${tierConfig.hue})`
+                            } as React.CSSProperties)
+                            : undefined
+                    }
                 >
                     <div className="space-y-6">
                         {/* Header con nombre y tier */}
                         <div className="flex items-start justify-between">
                             <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <h1 className="text-3xl font-bold">
+                                    <h1 className={`text-3xl ${tierConfig.nameEffect}`}>
                                         {profile.user.name || "Músico Anónimo"}
                                     </h1>
-                                    {tierConfig.name === "MASTER" && (
-                                        <Sparkles className="h-7 w-7 text-primary animate-pulse-slow" />
-                                    )}
+                                    {(tierConfig.name === "MASTER" ||
+                                        tierConfig.name === "EXPERT") && (
+                                            <Sparkles className={`h-7 w-7 ${tierConfig.textEffect}`} />
+                                        )}
                                 </div>
                                 <Badge className="bg-primary/20 text-primary border-primary/30">
                                     {profile.instrument.name}
@@ -185,13 +193,15 @@ export default async function MusicianProfilePage({ params }: Props) {
                         {/* Info básica */}
                         <div className="space-y-3">
                             {profile.user.location && (
-                                <div className="flex items-center gap-2 text-muted-foreground">
+                                <div
+                                    className={`flex items-center gap-2 ${tierConfig.locationEffect}`}
+                                >
                                     <MapPin className="h-5 w-5" />
                                     <span>{profile.user.location}</span>
                                 </div>
                             )}
 
-                            <div className="flex items-center gap-2 text-muted-foreground">
+                            <div className={`flex items-center gap-2 ${tierConfig.textEffect}`}>
                                 <Calendar className="h-5 w-5" />
                                 <span>{getSeniorityLabel(profile.calculatedSeniority)}</span>
                             </div>

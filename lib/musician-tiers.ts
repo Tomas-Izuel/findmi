@@ -19,67 +19,79 @@ export type MusicianTier =
 export interface TierConfig {
   name: string;
   label: string;
-  color: string;
-  gradient: string;
-  borderGlow: string;
-  animation: string;
+  borderColor: string;
+  borderEffect: string;
   badgeColor: string;
-  icon: string;
+  textEffect: string;
+  nameEffect: string;
+  locationEffect: string;
+  iconName: string; // Nombre del icono de Lucide
+  hue: number; // Para el color del shimmer
 }
 
 export const TIER_CONFIGS: Record<MusicianTier, TierConfig> = {
   BEGINNER: {
     name: "BEGINNER",
     label: "Principiante",
-    color: "text-gray-400",
-    gradient: "from-gray-500/20 to-transparent",
-    borderGlow: "border-gray-500/30",
-    animation: "",
+    borderColor: "border-gray-500/30",
+    borderEffect: "",
     badgeColor: "bg-gray-500/20 text-gray-300 border-gray-500/30",
-    icon: "🎵",
+    textEffect: "text-white/90",
+    nameEffect: "text-white",
+    locationEffect: "text-white/80",
+    iconName: "music",
+    hue: 0,
   },
   INTERMEDIATE: {
     name: "INTERMEDIATE",
     label: "Intermedio",
-    color: "text-blue-400",
-    gradient: "from-blue-500/30 to-transparent",
-    borderGlow: "border-blue-500/40 shadow-lg shadow-blue-500/20",
-    animation: "",
-    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40",
-    icon: "🎸",
+    borderColor: "border-blue-400/50",
+    borderEffect: "",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-400/40",
+    textEffect: "text-white/90",
+    nameEffect: "text-white",
+    locationEffect: "text-white/80",
+    iconName: "guitar",
+    hue: 220,
   },
   ADVANCED: {
     name: "ADVANCED",
     label: "Avanzado",
-    color: "text-purple-400",
-    gradient: "from-purple-500/40 to-transparent",
-    borderGlow: "border-purple-500/50 shadow-xl shadow-purple-500/30",
-    animation: "animate-pulse-slow",
-    badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/50",
-    icon: "⭐",
+    borderColor: "border-purple-400/60",
+    borderEffect: "",
+    badgeColor: "bg-purple-500/25 text-purple-300 border-purple-400/50",
+    textEffect: "text-purple-300 font-semibold animate-pulse-soft",
+    nameEffect: "text-white",
+    locationEffect: "text-purple-200/90",
+    iconName: "star",
+    hue: 270,
   },
   EXPERT: {
     name: "EXPERT",
     label: "Experto",
-    color: "text-amber-400",
-    gradient: "from-amber-500/50 to-orange-500/30",
-    borderGlow: "border-amber-500/60 shadow-2xl shadow-amber-500/40",
-    animation: "animate-pulse-slow",
+    borderColor: "border-amber-500/60",
+    borderEffect: "animate-border-trace [--border-color:oklch(0.8_0.2_40)]",
     badgeColor:
-      "bg-gradient-to-r from-amber-500/30 to-orange-500/30 text-amber-200 border-amber-500/60",
-    icon: "🔥",
+      "bg-gradient-to-r from-amber-500/30 to-orange-500/30 text-amber-200 border-amber-400/60",
+    textEffect: "text-amber-300 font-bold animate-text-shimmer",
+    nameEffect: "text-amber-100 font-bold animate-name-entrance",
+    locationEffect: "text-amber-200/90",
+    iconName: "flame",
+    hue: 40,
   },
   MASTER: {
     name: "MASTER",
     label: "Maestro",
-    color: "text-primary",
-    gradient: "from-primary/60 via-primary/40 to-transparent",
-    borderGlow:
-      "border-primary shadow-[0_0_30px_rgba(0,255,157,0.5)] animate-glow-pulse",
-    animation: "animate-float",
+    borderColor: "border-primary/60",
+    borderEffect: "animate-border-trace [--border-color:oklch(0.8_0.2_140)]",
     badgeColor:
-      "bg-gradient-to-r from-primary/40 to-primary/20 text-primary border-primary animate-pulse-slow",
-    icon: "👑",
+      "bg-gradient-to-r from-primary/40 to-primary/20 text-primary border-primary",
+    textEffect: "text-primary font-bold animate-text-shimmer",
+    nameEffect:
+      "text-primary font-extrabold animate-name-entrance drop-shadow-[0_0_8px_rgba(0,255,157,0.5)]",
+    locationEffect: "text-primary/90",
+    iconName: "crown",
+    hue: 140,
   },
 };
 
