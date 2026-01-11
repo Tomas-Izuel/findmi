@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Logo } from "@/components/ui/logo";
 import { ContactStep } from "@/components/onboarding/contact-step";
+import { AppRoutes } from "@/lib/routes";
 
 export default async function OnboardingPage() {
     const session = await auth.api.getSession({
@@ -10,7 +11,7 @@ export default async function OnboardingPage() {
     });
 
     if (!session) {
-        redirect("/login");
+        redirect(AppRoutes.LOGIN);
     }
 
     return (

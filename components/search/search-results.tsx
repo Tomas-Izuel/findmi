@@ -10,6 +10,7 @@ import { type SearchFilters } from "./search-filters";
 import { getSeniorityLabel } from "@/lib/seniority";
 import { getTierConfig } from "@/lib/musician-tiers";
 import { TierIcon } from "@/components/ui/tier-icon";
+import { DynamicRoutes } from "@/lib/routes";
 
 interface ProfileImage {
     id: string;
@@ -178,7 +179,7 @@ export function SearchResults({ filters }: SearchResultsProps) {
                         key={profile.id}
                         className="h-full snap-start snap-always flex items-center justify-center p-4"
                     >
-                        <Link href={`/musico/${profile.id}`} className="w-full max-w-md h-full">
+                        <Link href={DynamicRoutes.musician(profile.id)} className="w-full max-w-md h-full">
                             <Card
                                 className={`relative w-full h-full bg-card border-2 cursor-pointer transition-all flex flex-col overflow-hidden ${tierConfig.borderColor} ${tierConfig.borderEffect} hover:scale-[1.02]`}
                                 style={

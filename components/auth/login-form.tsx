@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/ui/logo";
+import { AppRoutes } from "@/lib/routes";
 
 export function LoginForm() {
     const router = useRouter();
@@ -31,7 +32,7 @@ export function LoginForm() {
             if (result.error) {
                 setError(result.error.message || "Error al iniciar sesión");
             } else {
-                router.push("/perfil");
+                router.push(AppRoutes.PROFILE);
                 router.refresh();
             }
         } catch {
@@ -46,7 +47,7 @@ export function LoginForm() {
         try {
             await signIn.social({
                 provider: "google",
-                callbackURL: "/perfil",
+                callbackURL: AppRoutes.PROFILE,
             });
         } catch {
             setError("Error al iniciar sesión con Google");
@@ -146,7 +147,7 @@ export function LoginForm() {
             {/* Register link */}
             <p className="text-center text-sm text-muted-foreground">
                 ¿No tenés cuenta?{" "}
-                <Link href="/registro" className="text-primary hover:underline">
+                <Link href={AppRoutes.REGISTER} className="text-primary hover:underline">
                     Registrate
                 </Link>
             </p>

@@ -21,6 +21,7 @@ import { PlatformIcon } from "@/components/ui/platform-icon";
 import { MusicianProfileCard } from "@/components/musician-profile/profile-card";
 import { LogoutButton } from "@/components/auth/logout-button";
 import Link from "next/link";
+import { AppRoutes } from "@/lib/routes";
 
 export default async function PerfilPage() {
     const session = await auth.api.getSession({
@@ -28,7 +29,7 @@ export default async function PerfilPage() {
     });
 
     if (!session) {
-        redirect("/login");
+        redirect(AppRoutes.LOGIN);
     }
 
     // Verificar si el usuario tiene contactos
@@ -49,7 +50,7 @@ export default async function PerfilPage() {
 
     // Redirigir al onboarding si no tiene contactos
     if (userContacts.length === 0) {
-        redirect("/onboarding");
+        redirect(AppRoutes.ONBOARDING);
     }
 
     // Obtener perfiles de músico del usuario
@@ -76,7 +77,8 @@ export default async function PerfilPage() {
             seniorityRange,
             eq(musicianProfile.seniorityRangeId, seniorityRange.id)
         )
-        .where(eq(musicianProfile.userId, session.user.id));
+        .where(eq(musicianProfile.userId, session.user.id))
+        .orderBy(musicianProfile.createdAt);
 
     // Obtener imágenes y experiencias para cada perfil
     const profilesWithDetails = await Promise.all(
@@ -148,7 +150,7 @@ export default async function PerfilPage() {
                         Mis Perfiles de Músico
                     </h3>
                     {profilesWithDetails.length > 0 && (
-                        <Link href="/perfil/nuevo-musico">
+                        <Link href={AppRoutes.NEW_MUSICIAN}>
                             <Button
                                 variant="ghost"
                                 size="sm"
@@ -163,8 +165,8 @@ export default async function PerfilPage() {
 
                 {profilesWithDetails.length === 0 ? (
                     /* CTA llamativo para crear el primer perfil */
-                    <Link href="/perfil/nuevo-musico">
-                        <Card className="p-6 bg-gradient-to-br from-primary/20 via-primary/10 to-background border-primary/30 hover:border-primary/50 transition-all cursor-pointer group">
+                    <Link href={AppRoutes.NEW_MUSICIAN}>
+                        <Card className="p-6 bg-linear-to-br from-primary/20 via-primary/10 to-background border-primary/30 hover:border-primary/50 transition-all cursor-pointer group">
                             <div className="flex items-center gap-4">
                                 <div className="h-14 w-14 rounded-2xl bg-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                                     <Sparkles className="h-7 w-7 text-primary-foreground" />
@@ -188,7 +190,7 @@ export default async function PerfilPage() {
                         ))}
 
                         {/* Botón para agregar otro perfil */}
-                        <Link href="/perfil/nuevo-musico">
+                        <Link href={AppRoutes.NEW_MUSICIAN}>
                             <Card className="p-4 border-dashed border-2 border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
                                 <div className="flex items-center justify-center gap-2 text-primary">
                                     <Plus className="h-5 w-5" />
@@ -204,7 +206,7 @@ export default async function PerfilPage() {
             <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold">Mis Contactos</h3>
-                    <Link href="/onboarding">
+                    <Link href={AppRoutes.ONBOARDING}>
                         <Button
                             variant="ghost"
                             size="sm"
@@ -253,7 +255,7 @@ export default async function PerfilPage() {
                     className="w-full h-12 rounded-xl border-primary/20 hover:bg-primary/10"
                     asChild
                 >
-                    <Link href="/perfil/editar">Editar perfil</Link>
+                    <Link href={AppRoutes.EDIT_PROFILE}>Editar perfil</Link>
                 </Button>
                 <LogoutButton />
             </div>

@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Check, Loader2 } from "lucide-react";
 import { PlatformIcon } from "@/components/ui/platform-icon";
+import { AppRoutes } from "@/lib/routes";
 
 interface Platform {
     id: string;
@@ -67,7 +68,7 @@ export function ContactStep() {
                 throw new Error(data.error || "Error al guardar");
             }
 
-            router.push("/perfil");
+            router.push(AppRoutes.PROFILE);
             router.refresh();
         } catch (err) {
             setError(err instanceof Error ? err.message : "Error al guardar el contacto");

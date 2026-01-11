@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { AppRoutes } from "@/lib/routes";
 
 export default async function PerfilLayout({
     children,
@@ -12,7 +13,7 @@ export default async function PerfilLayout({
     });
 
     if (!session) {
-        redirect("/login");
+        redirect(AppRoutes.LOGIN);
     }
 
     return <>{children}</>;

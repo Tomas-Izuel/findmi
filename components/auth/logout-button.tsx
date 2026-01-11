@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { LogOut, Loader2 } from "lucide-react";
+import { AppRoutes } from "@/lib/routes";
 
 export function LogoutButton() {
     const router = useRouter();
@@ -14,7 +15,7 @@ export function LogoutButton() {
         setIsLoading(true);
         try {
             await signOut();
-            router.push("/");
+            router.push(AppRoutes.HOME);
             router.refresh();
         } catch (error) {
             console.error("Error logging out:", error);

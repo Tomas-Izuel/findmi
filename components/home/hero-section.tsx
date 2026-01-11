@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { AppRoutes } from "@/lib/routes";
 
 export function HeroSection() {
     return (
@@ -21,7 +22,7 @@ export function HeroSection() {
                 {/* CTA Buttons */}
                 <div className="flex gap-3 justify-center mt-6">
                     <Button asChild size="lg" className="rounded-full px-6 bg-primary text-primary-foreground hover:bg-primary/90">
-                        <Link href="/buscar">
+                        <Link href={AppRoutes.SEARCH}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -44,7 +45,7 @@ export function HeroSection() {
                         variant="outline"
                         className="rounded-full px-6 border-primary/30 text-primary hover:bg-primary/10"
                     >
-                        <Link href="/registro">Unirme</Link>
+                        <Link href={AppRoutes.REGISTER}>Unirme</Link>
                     </Button>
                 </div>
 

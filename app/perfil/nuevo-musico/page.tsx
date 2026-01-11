@@ -5,6 +5,7 @@ import { Logo } from "@/components/ui/logo";
 import { WizardContainer } from "@/components/musician-profile/wizard-container";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { AppRoutes } from "@/lib/routes";
 
 export default async function NuevoMusicoPage() {
     const session = await auth.api.getSession({
@@ -12,7 +13,7 @@ export default async function NuevoMusicoPage() {
     });
 
     if (!session) {
-        redirect("/login");
+        redirect(AppRoutes.LOGIN);
     }
 
     return (
@@ -20,7 +21,7 @@ export default async function NuevoMusicoPage() {
             {/* Header */}
             <div className="p-4 flex items-center justify-between border-b border-border">
                 <Link
-                    href="/perfil"
+                    href={AppRoutes.PROFILE}
                     className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                     <ArrowLeft className="h-5 w-5" />

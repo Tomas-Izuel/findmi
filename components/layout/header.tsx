@@ -5,6 +5,7 @@ import { useSession } from "@/lib/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { AppRoutes } from "@/lib/routes";
 
 export function Header() {
     const { data: session } = useSession();
@@ -14,14 +15,14 @@ export function Header() {
             <div className="glass border-b border-primary/10">
                 <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-1">
+                    <Link href={AppRoutes.HOME} className="flex items-center gap-1">
                         <Logo className="h-7 w-7 text-primary" />
-                        <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">Findmi</span>
+                        <span className="text-lg font-bold bg-linear-to-r from-primary to-primary/50 bg-clip-text text-transparent">Findmi</span>
                     </Link>
 
                     {/* Auth */}
                     {session ? (
-                        <Link href="/perfil">
+                        <Link href={AppRoutes.PROFILE}>
                             <Avatar className="w-9 h-9 border-2 border-primary/30">
                                 <AvatarImage src={session.user.image || ""} />
                                 <AvatarFallback className="bg-primary/20 text-primary text-sm">
@@ -31,7 +32,7 @@ export function Header() {
                         </Link>
                     ) : (
                         <Button asChild size="sm" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
-                            <Link href="/login">Ingresar</Link>
+                            <Link href={AppRoutes.LOGIN}>Ingresar</Link>
                         </Button>
                     )}
                 </div>

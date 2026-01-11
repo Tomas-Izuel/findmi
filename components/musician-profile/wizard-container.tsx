@@ -6,6 +6,7 @@ import { InstrumentStep } from "./instrument-step";
 import { SeniorityStep } from "./seniority-step";
 import { ExperiencesStep, type Experience } from "./experiences-step";
 import { ImageStep } from "./image-step";
+import { AppRoutes } from "@/lib/routes";
 
 const STEPS = ["instrument", "seniority", "experiences", "image"] as const;
 type Step = (typeof STEPS)[number];
@@ -63,7 +64,7 @@ export function WizardContainer() {
                 throw new Error(data.error || "Error al crear el perfil");
             }
 
-            router.push("/perfil");
+            router.push(AppRoutes.PROFILE);
             router.refresh();
         } catch (err) {
             setError(err instanceof Error ? err.message : "Error al crear el perfil");

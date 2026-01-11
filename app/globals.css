@@ -48,23 +48,23 @@
 .animate-border-trace {
   box-shadow: 
     0 0 0 1px var(--border-color, oklch(0.8 0.2 140)),
-    0 0 12px -6px var(--border-color, oklch(0.8 0.2 140)),
-    inset 0 0 10px -8px var(--border-color, oklch(0.8 0.2 140));
-  animation: border-glow-pulse 4s ease-in-out infinite;
+    0 0 8px -7px var(--border-color, oklch(0.8 0.2 140)),
+    inset 0 0 6px -5px var(--border-color, oklch(0.8 0.2 140));
+  animation: border-glow-pulse 5s ease-in-out infinite;
 }
 
 @keyframes border-glow-pulse {
   0%, 100% {
     box-shadow: 
       0 0 0 1px var(--border-color, oklch(0.8 0.2 140)),
-      0 0 12px -6px var(--border-color, oklch(0.8 0.2 140)),
-      inset 0 0 10px -8px var(--border-color, oklch(0.8 0.2 140));
+      0 0 8px -7px var(--border-color, oklch(0.8 0.2 140)),
+      inset 0 0 6px -5px var(--border-color, oklch(0.8 0.2 140));
   }
   50% {
     box-shadow: 
       0 0 0 1px var(--border-color, oklch(0.8 0.2 140)),
-      0 0 18px -4px var(--border-color, oklch(0.8 0.2 140)),
-      inset 0 0 14px -6px var(--border-color, oklch(0.8 0.2 140));
+      0 0 12px -6px var(--border-color, oklch(0.8 0.2 140)),
+      inset 0 0 8px -4px var(--border-color, oklch(0.8 0.2 140));
   }
 }
 

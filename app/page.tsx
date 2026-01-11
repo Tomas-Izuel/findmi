@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MusicianCard } from "@/components/home/musician-card";
+import { AppRoutes } from "@/lib/routes";
 
 // Mock data - esto vendría de la DB
 const featuredMusicians = [
@@ -63,7 +64,7 @@ export default function Home() {
           <p className="text-xs text-muted-foreground">Tocá para ver más</p>
         </div>
         <Link
-          href="/buscar"
+          href={AppRoutes.SEARCH}
           className="px-3 py-1.5 rounded-full border border-primary/30 text-primary text-xs font-medium hover:bg-primary/10 transition-all"
         >
           Ver todos

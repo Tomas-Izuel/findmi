@@ -1,0 +1,99 @@
+# Reglas de Cursor para Findmi
+
+## Sistema de Rutas Tipadas
+
+### REGLA OBLIGATORIA: Usar SIEMPRE rutas tipadas
+
+- NUNCA usar strings hardcodeados para rutas (❌ "/perfil", "/login", etc.)
+- SIEMPRE importar y usar `AppRoutes` y `DynamicRoutes` desde `@/lib/routes`
+- Esta regla aplica para: `<Link href>`, `router.push()`, `router.replace()`, `redirect()`
+
+### Ejemplos CORRECTOS ✅
+
+```typescript
+import { AppRoutes, DynamicRoutes } from "@/lib/routes";
+
+// Links estáticos
+<Link href={AppRoutes.HOME}>Inicio</Link>
+<Link href={AppRoutes.SEARCH}>Buscar</Link>
+<Link href={AppRoutes.PROFILE}>Perfil</Link>
+
+// Links dinámicos
+<Link href={DynamicRoutes.musician(id)}>Ver Músico</Link>
+
+// Router navigation
+router.push(AppRoutes.LOGIN);
+router.replace(AppRoutes.PROFILE);
+
+// Server-side redirect
+redirect(AppRoutes.ONBOARDING);
+```
+
+### Ejemplos INCORRECTOS ❌
+
+```typescript
+// ❌ NUNCA hacer esto
+<Link href="/perfil">Perfil</Link>
+<Link href="/login">Login</Link>
+<Link href={`/musico/${id}`}>Ver Músico</Link>
+router.push("/buscar");
+redirect("/onboarding");
+```
+
+### Al agregar nuevas rutas
+
+1. **Rutas estáticas**: Agregar al enum `AppRoutes` en `lib/routes.ts`
+2. **Rutas dinámicas**: Agregar función a `DynamicRoutes` en `lib/routes.ts`
+3. **Actualizar validación**: Modificar `isValidRoute()` si es necesario
+
+### Ejemplo de nueva ruta estática
+
+```typescript
+export enum AppRoutes {
+  // ... rutas existentes
+  NEW_ROUTE = "/mi-nueva-ruta",
+}
+```
+
+### Ejemplo de nueva ruta dinámica
+
+```typescript
+export const DynamicRoutes = {
+  // ... rutas existentes
+  myNewRoute: (id: string, slug: string) => `/mi-ruta/${id}/${slug}` as const,
+} as const;
+```
+
+## Otras Reglas del Proyecto
+
+### Estilos y UI
+
+- Usar Tailwind CSS para todos los estilos
+- Preferir `bg-linear-to-*` sobre `bg-gradient-to-*`
+- Usar componentes de Shadcn UI cuando sea posible
+- Mantener consistencia con el sistema de design existente
+
+### Código
+
+- Usar TypeScript estricto
+- Preferir server components sobre client components cuando sea posible
+- Usar `"use client"` solo cuando sea necesario (hooks, eventos, etc.)
+- Importar tipos con `import type { }` cuando sea posible
+
+### Base de Datos
+
+- Usar Drizzle ORM para todas las consultas
+- Las migraciones se manejan con `bun run db:push`
+- Nunca modificar directamente la base de datos sin una migración
+
+### Autenticación
+
+- Usar Better Auth para toda la autenticación
+- Verificar sesiones con `auth.api.getSession({ headers: await headers() })`
+- Redirigir a `AppRoutes.LOGIN` si no hay sesión
+
+### Imágenes
+
+- Usar Cloudinary para almacenamiento
+- Siempre usar `next/image` con optimización
+- Incluir `alt` text descriptivo en todas las imágenes

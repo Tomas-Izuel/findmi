@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MusicianCard } from "./musician-card";
+import { AppRoutes } from "@/lib/routes";
 
 // Mock data - esto vendría de la DB
 const featuredMusicians = [
@@ -62,7 +63,7 @@ export function BentoGrid() {
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-semibold">Músicos destacados</h2>
                     <Link
-                        href="/buscar"
+                        href={AppRoutes.SEARCH}
                         className="text-sm text-primary hover:underline underline-offset-4"
                     >
                         Ver todos

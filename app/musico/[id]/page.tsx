@@ -30,6 +30,7 @@ import { getTierConfig } from "@/lib/musician-tiers";
 import { getSeniorityLabel } from "@/lib/seniority";
 import { PlatformIcon } from "@/components/ui/platform-icon";
 import { TierIcon } from "@/components/ui/tier-icon";
+import { AppRoutes } from "@/lib/routes";
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -143,7 +144,7 @@ export default async function MusicianProfilePage({ params }: Props) {
                         size="icon"
                         className="rounded-full bg-black/50 backdrop-blur-sm hover:bg-black/70 text-white"
                     >
-                        <Link href="/buscar">
+                        <Link href={AppRoutes.SEARCH}>
                             <ArrowLeft className="h-5 w-5" />
                         </Link>
                     </Button>
@@ -295,7 +296,7 @@ export default async function MusicianProfilePage({ params }: Props) {
                             Iniciá sesión para ver las opciones de contacto
                         </p>
                         <Button asChild className="bg-primary text-primary-foreground">
-                            <Link href="/login">Iniciar sesión</Link>
+                            <Link href={AppRoutes.LOGIN}>Iniciar sesión</Link>
                         </Button>
                     </Card>
                 )}
