@@ -2,11 +2,13 @@
 
 import { useCallback, useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Music, MapPin, Star } from "lucide-react";
+import { Loader2, Music, MapPin, Star, Sparkles } from "lucide-react";
 import { type SearchFilters } from "./search-filters";
 import { getSeniorityLabel } from "@/lib/seniority";
+import { getTierConfig } from "@/lib/musician-tiers";
 
 interface ProfileImage {
     id: string;
@@ -168,68 +170,88 @@ export function SearchResults({ filters }: SearchResultsProps) {
             ref={containerRef}
             className="flex-1 overflow-y-auto snap-y snap-mandatory"
         >
-            {profiles.map((profile) => (
-                <div
-                    key={profile.id}
-                    className="h-full snap-start snap-always flex items-center justify-center p-4"
-                >
-                    <Card className="w-full max-w-md h-full overflow-hidden bg-card border-border cursor-pointer hover:border-primary/30 transition-colors flex flex-col">
-                        {/* Imagen - ocupa la mayor parte */}
-                        <div className="relative flex-1 min-h-0">
-                            {profile.primaryImage ? (
-                                <Image
-                                    src={profile.primaryImage.url}
-                                    alt={profile.user.name || "Músico"}
-                                    fill
-                                    className="object-cover"
-                                />
-                            ) : (
-                                <div className="w-full h-full bg-muted flex items-center justify-center">
-                                    <Music className="h-16 w-16 text-muted-foreground" />
-                                </div>
-                            )}
-                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
-
-                            {/* Badge instrumento */}
-                            <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1">
-                                {profile.instrument.name}
-                            </Badge>
-
-                            {/* Info superpuesta */}
-                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
-                                <h3 className="text-2xl font-bold">
-                                    {profile.user.name || "Sin nombre"}
-                                </h3>
-
-                                {profile.user.location && (
-                                    <p className="text-sm flex items-center gap-2 text-white/90">
-                                        <MapPin className="h-4 w-4" />
-                                        {profile.user.location}
-                                    </p>
-                                )}
-
-                                <div className="flex items-center gap-4">
-                                    <span className="text-sm text-white/90">
-                                        {getSeniorityLabel(profile.calculatedSeniority)}
-                                    </span>
-                                    {profile.experienceCount > 0 && (
-                                        <span className="text-sm text-primary flex items-center gap-1">
-                                            <Star className="h-4 w-4 fill-current" />
-                                            {profile.experienceCount} experiencia{profile.experienceCount > 1 ? "s" : ""}
-                                        </span>
+            {profiles.map((profile) => {
+                const tierConfig = getTierConfig(profile.calculatedSeniority);
+                return (
+                    <div
+                        key={profile.id}
+                        className="h-full snap-start snap-always flex items-center justify-center p-4"
+                    >
+                        <Link href={`/musico/${profile.id}`} className="w-full max-w-md h-full">
+                            <Card className={`w-full h-full overflow-hidden bg-card border-2 cursor-pointer transition-all flex flex-col ${tierConfig.borderGlow} ${tierConfig.animation} hover:scale-[1.02]`}>
+                                {/* Imagen - ocupa la mayor parte */}
+                                <div className="relative flex-1 min-h-0">
+                                    {profile.primaryImage ? (
+                                        <Image
+                                            src={profile.primaryImage.url}
+                                            alt={profile.user.name || "Músico"}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-muted flex items-center justify-center">
+                                            <Music className="h-16 w-16 text-muted-foreground" />
+                                        </div>
                                     )}
-                                </div>
+                                    <div className={`absolute inset-0 bg-linear-to-t ${tierConfig.gradient} via-transparent to-transparent`} />
 
-                                {profile.bio && (
-                                    <p className="text-sm text-white/80 line-clamp-2">
-                                        {profile.bio}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-            ))}
+                                    {/* Badge tier - top left */}
+                                    <Badge className={`absolute top-4 left-4 border ${tierConfig.badgeColor} px-3 py-1 text-sm font-bold`}>
+                                        {tierConfig.icon} {tierConfig.label}
+                                    </Badge>
+
+                                    {/* Badge instrumento - top right */}
+                                    <Badge className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white border-white/30 px-3 py-1">
+                                        {profile.instrument.name}
+                                    </Badge>
+
+                                    {/* Info superpuesta */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="text-2xl font-bold flex-1">
+                                                {profile.user.name || "Sin nombre"}
+                                            </h3>
+                                            {tierConfig.name === "MASTER" && (
+                                                <Sparkles className="h-6 w-6 text-primary animate-pulse-slow" />
+                                            )}
+                                        </div>
+
+                                        {profile.user.location && (
+                                            <p className="text-sm flex items-center gap-2 text-white/90">
+                                                <MapPin className="h-4 w-4" />
+                                                {profile.user.location}
+                                            </p>
+                                        )}
+
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-sm text-white/90">
+                                                {getSeniorityLabel(profile.calculatedSeniority)}
+                                            </span>
+                                            {profile.experienceCount > 0 && (
+                                                <span className="text-sm text-amber-300 flex items-center gap-1">
+                                                    <Star className="h-4 w-4 fill-current" />
+                                                    {profile.experienceCount} experiencia{profile.experienceCount > 1 ? "s" : ""}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {profile.bio && (
+                                            <p className="text-sm text-white/80 line-clamp-2">
+                                                {profile.bio}
+                                            </p>
+                                        )}
+
+                                        {/* Indicador de tap */}
+                                        <p className="text-xs text-white/60 text-center mt-2">
+                                            Tocá para ver más
+                                        </p>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Link>
+                    </div>
+                );
+            })}
 
             {/* Loading more indicator */}
             {isLoadingMore && (
