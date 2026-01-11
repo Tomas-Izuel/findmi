@@ -9,8 +9,8 @@ const featuredMusicians = [
     name: "Martín García",
     instrument: "Guitarra",
     experience: "5+ años",
-    location: "Buenos Aires",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=600&fit=crop",
+    location: "Godoy Cruz",
+    image: "https://images.unsplash.com/photo-1565022472425-b6ae14b4b050?q=80&w=2054&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=400&h=600&fit=crop",
   },
   {
     id: "2",
@@ -18,7 +18,7 @@ const featuredMusicians = [
     instrument: "Bajo",
     experience: "3 años",
     location: "Córdoba",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1609940539397-3fa778baf74a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=400&h=600&fit=crop",
   },
   {
     id: "3",
@@ -26,7 +26,7 @@ const featuredMusicians = [
     instrument: "Batería",
     experience: "7 años",
     location: "Rosario",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1503506584117-5ed92741077a?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=400&h=600&fit=crop",
   },
   {
     id: "4",
@@ -42,7 +42,7 @@ const featuredMusicians = [
     instrument: "Teclado",
     experience: "6 años",
     location: "La Plata",
-    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1690742319740-9472091ed48f?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=400&h=600&fit=crop",
   },
   {
     id: "6",
